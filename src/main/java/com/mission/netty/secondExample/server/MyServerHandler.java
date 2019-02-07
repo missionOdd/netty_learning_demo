@@ -13,6 +13,7 @@ public class MyServerHandler extends SimpleChannelInboundHandler<String> {
 
   @Override
   protected void channelRead0(ChannelHandlerContext ctx, String msg) throws Exception {
+    System.out.println("执行了channelRead0");
     System.out.println(ctx.channel().remoteAddress()+","+msg);
 
     //输出并把缓冲内容推出

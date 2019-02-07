@@ -6,6 +6,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import java.time.LocalDateTime;
 
 /**
+ * 处理器
  * @author mission
  * @date 2019/1/24 0024-15:13
  */
@@ -27,5 +28,10 @@ public class MyClientHandler extends SimpleChannelInboundHandler<String> {
   public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
     cause.printStackTrace();
     ctx.close();
+  }
+
+  @Override
+  public void channelActive(ChannelHandlerContext ctx) throws Exception {
+    ctx.writeAndFlush("来自客户的问候!!");
   }
 }

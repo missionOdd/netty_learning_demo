@@ -10,6 +10,7 @@ import io.netty.handler.codec.string.StringEncoder;
 import io.netty.util.CharsetUtil;
 
 /**
+ * 初始化器
  * @author mission
  * @date 2019/1/24 0024-15:07
  */
@@ -23,6 +24,6 @@ public class MyClientInitializer extends ChannelInitializer<SocketChannel> {
     .addLast(new LengthFieldPrepender(4))
     .addLast(new StringDecoder(CharsetUtil.UTF_8))
     .addLast(new StringEncoder(CharsetUtil.UTF_8))
-    .addLast(null);
+    .addLast(new MyClientHandler());
   }
 }

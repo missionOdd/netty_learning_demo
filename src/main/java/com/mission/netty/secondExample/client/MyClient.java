@@ -4,7 +4,7 @@ import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.channel.socket.nio.NioSocketChannel;
 
 
 /**
@@ -17,10 +17,10 @@ public class MyClient {
     //客户端只需要一个线程组
     EventLoopGroup eventLoopGroup =new NioEventLoopGroup();
     try {
-     Bootstrap bootstrap=new Bootstrap();
+     Bootstrap bootstrap=new Bootstrap();//这里是Bootstrap ,有别于ServerBootstrap
      bootstrap.group(eventLoopGroup)
-         .channel(NioServerSocketChannel.class)
-         .handler(null) //线程处理
+         .channel(NioSocketChannel.class)//这里是NioSocketChannel,有别于NioServerSocketChannel
+         .handler(new MyClientInitializer()) //线程处理,这里也可以使用childHandler
           ;
 
       ChannelFuture channelFuture =bootstrap.connect("localhost",8899).sync();
