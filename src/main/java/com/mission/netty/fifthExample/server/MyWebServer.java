@@ -1,4 +1,5 @@
-package com.mission.netty.fourthExample.server;
+package com.mission.netty.fifthExample.server;
+
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -10,9 +11,9 @@ import io.netty.handler.logging.LoggingHandler;
 
 /**
  * @author mission
- * @date 2019/2/7 0007-15:24
+ * @date 2019/2/8 0008-15:43
  */
-public class MyServer {
+public class MyWebServer {
 
   public static void main(String[] args) throws InterruptedException {
     EventLoopGroup bossGroup = new NioEventLoopGroup();
@@ -22,8 +23,8 @@ public class MyServer {
       ServerBootstrap serverBootstrap =new ServerBootstrap();
       serverBootstrap.group(bossGroup,workerGroup)
           .channel(NioServerSocketChannel.class)
-          .handler(new LoggingHandler(LogLevel.INFO)) //日志处理包
-          .childHandler(new MyServerInitializer());
+          .handler(new LoggingHandler(LogLevel.INFO))
+          .childHandler(new MyWebSocketChannelInitializer());
       ChannelFuture channelFuture =serverBootstrap.bind(8899).sync();
       channelFuture.channel().closeFuture().sync();
     } finally {
