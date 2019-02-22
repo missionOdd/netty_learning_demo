@@ -1,0 +1,22 @@
+syntax="proto2";//指定语法proto2
+
+package com.mission.netty.sixthExample.protobuf;//指定包名
+
+option optimize_for =SPEED;//可以选择SPEED,CODE_SIZE,LITE_RUNTIME三种模式优化
+
+option java_package = "com.mission.netty.sixthExample.protobuf"; //指定Java 报名
+option java_outer_classname= "MyDataInfo"; //暴露外部类
+/*
+required*必须提供该字段的值，否则该消息将被视为“未初始化”。试图构建未初始化的消息将引发RuntimeException。解析未初始化的消息将引发IOException。除此之外，所需字段的行为与可选字段完全相同。
+optional*该字段可以设置，也可以不设置。如果未设置可选字段值，则使用默认值。对于简单类型，可以指定自己的默认值，就像我们对电话号码所做的那样type在这个例子中。否则，将使用系统默认值：数字类型为零，字符串为空字符串，bools为false。对于嵌入式消息，默认值始终是消息的“默认实例”或“原型”，没有设置任何字段。调用访问器以获取未显式设置的可选(或必需)字段的值，始终返回该字段的默认值。
+repeated该字段可以重复任何次数(包括零)。重复值的顺序将保留在协议缓冲区中。将重复字段视为动态大小的数组。
+
+每个元素上的“=1”、“=2”标记标识字段在二进制编码中使用的唯一“标记”。
+*/
+message Person{
+    required string name =1;
+    optional int32 age =2 ;
+    optional string address =3 ;
+}
+
+//在Terminal 中写入命令 protoc --java_out=src/main/java src/protobuf/Person.proto
