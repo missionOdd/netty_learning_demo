@@ -1,10 +1,13 @@
 plugins {
     id 'java'
+    id "com.google.protobuf" version "0.8.8"
 }
 
 group 'com.misison'
 version '1.0-SNAPSHOT'
 apply plugin: 'java'
+
+
 
 sourceCompatibility = 1.8
 
@@ -14,8 +17,8 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
-    
-    compile group: 'io.netty', name: 'netty-all', version: '4.1.11.Final'
+
+    compile group: 'io.netty', name: 'netty-all', version: '4.1.32.Final'
     
     /*google  protobuf依赖*/
     compile group: 'com.google.protobuf', name: 'protobuf-java', version: '3.6.1'
@@ -24,4 +27,27 @@ dependencies {
     /*thrift*/
     compile group: 'org.apache.thrift', name: 'libthrift', version: '0.12.0'
 
+    /*gRRC*/
+    compile 'io.grpc:grpc-netty-shaded:1.18.0'
+    compile 'io.grpc:grpc-protobuf:1.18.0'
+    compile 'io.grpc:grpc-stub:1.18.0'
+
+}
+
+
+protobuf {
+    generatedFilesBaseDir = "$projectDir/build/generated"
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.5.1-1"
+    }
+    plugins {
+        grpc {
+            artifact = 'io.grpc:protoc-gen-grpc-java:1.18.0'
+        }
+    }
+    generateProtoTasks {
+        all()*.plugins {
+            grpc {}
+        }
+    }
 }
